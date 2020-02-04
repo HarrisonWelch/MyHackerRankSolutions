@@ -5,12 +5,12 @@ Please append a semicolon ";" at the end of the query and enter your query in a 
 
 SELECT
     N, 
-    P,
+    -- P,
     (
     CASE
         WHEN P IS NULL THEN 'Root'
-        WHEN P IN (SELECT N FROM BST) THEN 'Leaf'
-        ELSE 'Inner'
+        WHEN (N IN (SELECT P FROM BST)) THEN 'Inner'
+        ELSE 'Leaf'
     END)
 FROM
     BST
@@ -18,5 +18,5 @@ START WITH
     P IS NULL
 CONNECT BY
     P = prior N
--- ORDER BY
---     N ASC;
+ORDER BY
+    N ASC;
