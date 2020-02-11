@@ -1,3 +1,5 @@
+// https://www.hackerrank.com/challenges/time-conversion/problem
+
 import java.io.*;
 import java.math.*;
 import java.text.*;
