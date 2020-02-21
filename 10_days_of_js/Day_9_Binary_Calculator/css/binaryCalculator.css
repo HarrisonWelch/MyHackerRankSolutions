@@ -1,0 +1,55 @@
+body {
+  width: 33%;
+}
+
+#res {
+  background-color: lightgray;
+  border: solid;
+  height: 48px;
+  font-size: 20px;
+}
+
+#btn0, #btn1 {
+  background-color: lightgreen;
+  color: brown;
+}
+
+ /* {
+  background-color: lightgreen;
+  color: brown;
+} */
+
+#btnClr, #btnEql {
+  background-color: darkgreen;
+  color: white;
+}
+
+#btnSum, #btnSub, #btnMul, #btnDiv {
+  background-color: black;
+  color: red;
+}
+
+#btn0, #btn1, #btnClr, #btnEql, #btnSum, #btnSub, #btnMul, #btnDiv {
+  width: 25%;
+  height: 36px;
+  font-size: 18px;
+  margin: 0px;
+  float: left;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+btn0 and btn1 have a background-color of lightgreen and a color of brown.
+btnClr and btnEql have a background-color of darkgreen and a color of white.
+btnSum, btnSub, btnMul, and btnDiv have a background-color of black, a color of red.
+All the buttons in btns have a width of 25%, a height of 36px, a font-size of 18px, margin of 0px, and float value left. */
