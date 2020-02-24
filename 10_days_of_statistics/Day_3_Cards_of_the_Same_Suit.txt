@@ -1,0 +1,9 @@
+https://www.hackerrank.com/challenges/s10-mcq-5/problem
+
+52 cards
+
+Div into 4 sets of 13
+
+1/4 for a specific suit
+
+Then I need the other 12 cards from that suit out of the other 51 cards or 12/51

@@ -1,0 +1,5 @@
+https://www.hackerrank.com/challenges/s10-mcq-4/problem
+
+Give 1 of them is a boy the only options are Boy+Boy, Boy+Girl, and Girl+Boy.
+
+Then we want Boy+Boy so the odds are 1/3.
