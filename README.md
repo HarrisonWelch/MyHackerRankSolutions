@@ -12,4 +12,7 @@ Repository for holding my [HackerRank](https://www.hackerrank.com/) programming 
 
 ## Badges
 
+<img src="https://github.com/HarrisonWelch/MyHackerRankSolutions/blob/master/Resources/10doj5.png" width="20%">
+
+
 <!-- [hr_logo]:  -->
