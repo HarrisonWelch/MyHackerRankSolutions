@@ -1,7 +1,15 @@
-# My Hackerrank Solutions
+# My HackerRank Solutions
+
+<!-- ![HackerRack Logo](https://hrcdn.net/fcore/assets/brand/h_mark_sm-966d2b45e3.svg) -->
+
+<img src="https://hrcdn.net/fcore/assets/brand/h_mark_sm-966d2b45e3.svg" width="20%">
 
 ## Description
 
-This is a repo for holding my [HackerRank](https://www.hackerrank.com/) programming solutions (IN PROGRESS OF BEING UPLOADED)
+Repository for holding my [HackerRank](https://www.hackerrank.com/) programming solutions.
 
-### [Link to my profile CLICK HERE](https://www.hackerrank.com/harrison_r_welch)
+### [Profile Link](https://www.hackerrank.com/harrison_r_welch)
+
+## Badges
+
+<!-- [hr_logo]:  -->
