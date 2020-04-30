@@ -8,7 +8,9 @@
 
 Repository for holding my [HackerRank](https://www.hackerrank.com/) programming solutions.
 
-### [Profile Link](https://www.hackerrank.com/harrison_r_welch)
+## Profile
+
+[@harrison_r_welch](https://www.hackerrank.com/harrison_r_welch)
 
 ## Badges
 
