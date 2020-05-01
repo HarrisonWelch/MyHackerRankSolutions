@@ -27,8 +27,8 @@ Repository for holding my [HackerRank](https://www.hackerrank.com/) programming 
 
 ## Challenges
 
-| Language                  | Amount    | Total | Percent |
-|---------------------------|----------:|------:|--------:|
+| Language                  | Completed | Total | Percent |
+|:--------------------------|----------:|------:|--------:|
 | Java                      | 23        | 64    | 36%     |
 | Python                    | 60        | 115   | 52%     |
 | SQL                       | 45        | 58    | 78%     |
