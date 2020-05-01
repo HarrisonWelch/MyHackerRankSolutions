@@ -42,6 +42,17 @@ Repository for holding my [HackerRank](https://www.hackerrank.com/) programming 
 | C language                | 3         | 25    | 8%      |
 | Ruby                      | 4         | 37    | 11%     |
 
+## Certifications
+
+1. Python Basic
+    * Issue Date: May 2020
+    * Credential ID: 7054C454478A
+    * URL: [https://www.hackerrank.com/certificates/7054c454478a](https://www.hackerrank.com/certificates/7054c454478a)
+2. Java Basic
+    * Issue Date: May 2020
+    * Credential ID: D41B6A98E909
+    * URL: [https://www.hackerrank.com/certificates/d41b6a98e909](https://www.hackerrank.com/certificates/d41b6a98e909)
+
 ## Credit
 
 All credit for the indiviual challenges go to their individual owners. All badge artwork credit goes to HackerRank owned and operated by Interviewstreet Incorporated. All solutions and related notes are my own.
