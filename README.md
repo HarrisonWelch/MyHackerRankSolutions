@@ -1,7 +1,5 @@
 # My HackerRank Solutions
 
-<!-- ![HackerRack Logo](https://hrcdn.net/fcore/assets/brand/h_mark_sm-966d2b45e3.svg) -->
-
 <img src="https://hrcdn.net/fcore/assets/brand/h_mark_sm-966d2b45e3.svg" width="15%">
 
 ## Description
@@ -26,3 +24,24 @@ Repository for holding my [HackerRank](https://www.hackerrank.com/) programming 
     <img src="https://github.com/HarrisonWelch/MyHackerRankSolutions/blob/master/Resources/ruby1.png" width="15%">
     <img src="https://github.com/HarrisonWelch/MyHackerRankSolutions/blob/master/Resources/clang1.png" width="15%">
 </p>
+
+## Challenges
+
+| Language                  | Amount    | Total | Percent |
+|---------------------------|----------:|------:|--------:|
+| Java                      | 23        | 64    | 36%     |
+| Python                    | 60        | 115   | 52%     |
+| SQL                       | 45        | 58    | 78%     |
+| Bash                      | 64        | 65    | 98%     |
+| 30 Days of Code           | 30        | 30    | 100%    |
+| 10 Days of JS             | 25        | 25    | 100%    |
+| C++                       | 14        | 44    | 32%     |
+| Problem Solving           | 21        | 442   | 5%      |
+| 10 Days of Statistics     | 13        | 27    | 48%     |
+| Haskell                   | 2         | 92    | 2%      |
+| C language                | 3         | 25    | 8%      |
+| Ruby                      | 4         | 37    | 11%     |
+
+## Credit
+
+All credit for the indiviual challenges go to their individual owners. All badge artwork credit goes to HackerRank owned and operated by Interviewstreet Incorporated. All solutions and related notes are my own.
