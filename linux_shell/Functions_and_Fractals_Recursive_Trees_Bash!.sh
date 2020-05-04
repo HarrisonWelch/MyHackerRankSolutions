@@ -23,6 +23,7 @@ widthMap=100
 heightMap=63
 start_pos_xy=(50 63)
 ret_arr=(0 0)
+ret_spos=0
 pos=()
 
 xy_coords_to_string_index () {
@@ -31,7 +32,13 @@ xy_coords_to_string_index () {
     spos=$(($spos * $2)) # mul by how far down we are
     spos=$(($spos - $widthMap))
     spos=$(($spos + $1))
-    return spos
+    spos=$(($spos - 2))
+    # echo -e "xy spos = $spos \n"
+    ret_spos=$(($spos))
+    # sleep 1
+    # echo "YEET"
+    # sleep 1
+    return 0
 }
 
 string_index_to_xy_coords () {
@@ -47,16 +54,19 @@ change_at_x_y_to_1 () {
     local spos=0
     echo "1 = $1"
     echo "2 = $2"
-    spos = xy_coords_to_string_index $1 $2
-    echo "spos = $spos"
-    map="$(map:0:$spos)1$(map:$spos+1)"
+    xy_coords_to_string_index $1 $2
+    # xy_coords_to_string_index $1 $2
+    # sleep 1
+    # echo -e "chg spos = $spos \n"
+    echo "ret_spos = $ret_spos"
+    map="${map:0:$ret_spos}1${map:$ret_spos+1}"
     # echo 
 }
 
 var=
 pos+=
 
-for (( i=$one; i<=$widthMap; i++ ))
+for (( i=$one; i<=$heightMap; i++ ))
 do
     # echo "YEET $i"
     for (( j=$one; j<=$widthMap; j++ ))
@@ -67,5 +77,9 @@ do
 done
 
 change_at_x_y_to_1 ${start_pos_xy[0]} ${start_pos_xy[1]}
+
+change_at_x_y_to_1 50 62
+change_at_x_y_to_1 50 61
+change_at_x_y_to_1 50 60
 
 echo -e $map
