@@ -103,13 +103,21 @@ spos_arr+=( "$ret_spos" )
 
 echo ${spos_arr[*]}
 
-stick_length=$((2**4))
-stick_length=$(($stick_length/$iter))
+# stick_length=$((2**4))
+# stick_length=$(($stick_length/$iter))
+stick_length=16
 
 echo stick_length $stick_length
+loop_arr=($spos_arr)
+# echo iter $iter
+# loops=$((2**$iter))
+# echo loops1 $loops
+# loops=$(($loops-1)) # 2^n - 1
+# echo loops2 $loops
 
 for (( i=$one; i<=$iter; i++ )); do
     echo 'YEET'
+    # spos_arr=$loop_arr
     for j in ${spos_arr[@]} 
     do
         # spos holds the positions with which to build Y's off of
@@ -139,7 +147,10 @@ for (( i=$one; i<=$iter; i++ )); do
         done
 
         # set up the xy pos if a new iteration of this loop is needed
-        # spos_arr=( "$start_x" "$start_y" ) # use equal to overright
+        xy_coords_to_string_index $(($start_x+1)) $(($start_y+1))
+        spos_arr+=( "$ret_spos" ) # use equal to overwrite it
+        echo spos_arr1 ${spos_arr[*]}
+
         start_x="${ret_arr[0]}"
         start_x=$(($start_x+1))
         start_y="${ret_arr[1]}"
@@ -150,9 +161,22 @@ for (( i=$one; i<=$iter; i++ )); do
             start_y=$(($start_y-1))
             start_x=$(($start_x+1))
         done
+        
+        # set up the xy pos if a new iteration of this loop is needed
+        xy_coords_to_string_index $start_x $start_y
+        spos_arr+=( "$ret_spos" ) # use '+=' to add it
 
-        # put the positions of top 1s on to the spos arr
+        echo spos_arr2 ${spos_arr[*]}
+        
     done
+
+    stick_length=$(($stick_length/2))
+    # spos_arr=()
+    start_remove_index=$(($i-1))
+    start_remove_index=$((2**$start_remove_index))
+    echo start_remove_index $start_remove_index
+    spos_arr=( "${spos_arr[@]:$start_remove_index}" )
+    echo spos_arr3 ${spos_arr[*]}
 done
 
 echo -e $map
