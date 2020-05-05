@@ -10,6 +10,12 @@
 
 read iter
 
+# if 0, leave program
+if [[ $iter -eq '0' ]]
+    then
+    exit
+fi
+
 # 0 iteration(s) |  0 stem |  0 branches
 # 1 iteration(s) | 16 stem | 16 branches
 # 2 iteration(s) |  8 stem |  8 branches
@@ -22,9 +28,11 @@ one=1
 widthMap=100
 heightMap=63
 start_pos_xy=(50 63)
+spos_arr=()
 ret_arr=(0 0)
 ret_spos=0
 pos=()
+stem_size=0
 
 xy_coords_to_string_index () {
     local spos=0
@@ -38,34 +46,40 @@ xy_coords_to_string_index () {
     # sleep 1
     # echo "YEET"
     # sleep 1
-    return 0
+    return $((ret_spos))
 }
 
 string_index_to_xy_coords () {
     local x=0
     local y=0
-    x= $1 % $(($widthMap+2))
-    y= $1 / $(($widthMap+2))
-    ret_arr=($x,$y)
+    x=$(($widthMap+2))
+    # echo x1 $x
+    x=$(($1%$x))
+    # echo x2 $x
+    y=$widthMap
+    y=$(($1/$y))
+    # y=$(($y - 2))
+    ret_arr=("$x" "$y")
     return 0
 }
 
 change_at_x_y_to_1 () {
     local spos=0
-    echo "1 = $1"
-    echo "2 = $2"
+    # echo "1 = $1"
+    # echo "2 = $2"
     xy_coords_to_string_index $1 $2
     # xy_coords_to_string_index $1 $2
     # sleep 1
     # echo -e "chg spos = $spos \n"
-    echo "ret_spos = $ret_spos"
+    # echo "ret_spos = $ret_spos"
     map="${map:0:$ret_spos}1${map:$ret_spos+1}"
     # echo 
 }
 
-var=
-pos+=
+# var=
+# pos+=
 
+# draw map
 for (( i=$one; i<=$heightMap; i++ ))
 do
     # echo "YEET $i"
@@ -76,10 +90,69 @@ do
     map+="\n"
 done
 
-change_at_x_y_to_1 ${start_pos_xy[0]} ${start_pos_xy[1]}
+# change_at_x_y_to_1 ${start_pos_xy[0]} ${start_pos_xy[1]}
 
-change_at_x_y_to_1 50 62
-change_at_x_y_to_1 50 61
-change_at_x_y_to_1 50 60
+# change_at_x_y_to_1 50 62
+# change_at_x_y_to_1 50 61
+# change_at_x_y_to_1 50 60
+
+# put start pos in the spos array
+xy_coords_to_string_index ${start_pos_xy[0]} ${start_pos_xy[1]}
+spos_arr+=( "$ret_spos" )
+# spos_arr+=( "$ret_spos" )
+
+echo ${spos_arr[*]}
+
+stick_length=$((2**4))
+stick_length=$(($stick_length/$iter))
+
+echo stick_length $stick_length
+
+for (( i=$one; i<=$iter; i++ )); do
+    echo 'YEET'
+    for j in ${spos_arr[@]} 
+    do
+        # spos holds the positions with which to build Y's off of
+        echo 'SKEET'
+        
+        # print y from pos
+        echo $j
+        string_index_to_xy_coords $j
+        echo ${ret_arr[*]}
+
+        # draw stem upwards
+        start_y="${ret_arr[1]}"
+        for k in $(seq 1 $stick_length)
+        do
+            change_at_x_y_to_1 ${ret_arr[0]} $start_y
+            start_y=$(($start_y-1))
+        done
+
+        # draw the left stick
+        start_x="${ret_arr[0]}"
+        start_x=$(($start_x-1))
+        for k in $(seq 1 $stick_length)
+        do
+            change_at_x_y_to_1 $start_x $start_y
+            start_y=$(($start_y-1))
+            start_x=$(($start_x-1))
+        done
+
+        # set up the xy pos if a new iteration of this loop is needed
+        # spos_arr=( "$start_x" "$start_y" ) # use equal to overright
+        start_x="${ret_arr[0]}"
+        start_x=$(($start_x+1))
+        start_y="${ret_arr[1]}"
+        start_y=$(($start_y-$stick_length))
+        for k in $(seq 1 $stick_length)
+        do
+            change_at_x_y_to_1 $start_x $start_y
+            start_y=$(($start_y-1))
+            start_x=$(($start_x+1))
+        done
+
+        # put the positions of top 1s on to the spos arr
+    done
+done
 
 echo -e $map
