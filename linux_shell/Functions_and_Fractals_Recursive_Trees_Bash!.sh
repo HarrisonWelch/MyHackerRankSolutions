@@ -8,166 +8,94 @@
 # 4 iteration(s) |  2 stem |  2 branches
 # 5 iteration(s) |  1 stem |  1 branches
 
-read iter
-
-# if 0, leave program
-if [[ $iter -eq '0' ]]
-    then
-    exit
-fi
-
-map=''
-one=1
+declare -A matrix
 widthMap=100
 heightMap=63
-start_pos_xy=(50 63)
-spos_arr=()
-ret_arr=(0 0)
-ret_spos=0
-pos=()
-stem_size=0
 
-xy_coords_to_string_index () {
-    local spos=0
-    spos=$(($widthMap + 2)) # add 2 b/c of newlines - 65
-    spos=$(($spos * $2)) # mul by how far down we are (y axis) - y * 65
-    spos=$(($spos - $widthMap)) # (y*65) - 65
-    spos=$(($spos + $1)) # (y*65) - 65 + x
-    spos=$(($spos - 2)) # (y*65) - 65 + x - 2
-    ret_spos=$(($spos))
-    return $((ret_spos))
-}
+declare -a roots
+roots[0]=50
 
-string_index_to_xy_coords () {
-    local x=0
-    local y=0
-    x=$(($widthMap+2))
-    x=$(($1%$x))
-    y=$widthMap
-    y=$(($1/$y))
-    ret_arr=("$x" "$y")
-    return 0
-}
+# read the number of iterations
+read iter
 
-change_at_x_y_to_1 () {
-    local spos=0
-    xy_coords_to_string_index $1 $2
-    map="${map:0:$ret_spos}1${map:$ret_spos+1}"
-}
+# start j from the bottom
+j=63
 
-change_at_x_y_to_2 () {
-    local spos=0
-    xy_coords_to_string_index $1 $2
-    map="${map:0:$ret_spos}2${map:$ret_spos+1}"
-}
-
-# DRAW MAP
-for (( i=$one; i<=$heightMap; i++ ))
-do
-    for (( j=$one; j<=$widthMap; j++ ))
-    do
-        map+="_"
-    done
-    map+="\n"
-done
-
-# put start pos in the spos array
-xy_coords_to_string_index ${start_pos_xy[0]} ${start_pos_xy[1]}
-spos_arr+=( "$ret_spos" )
-
+# the 'Y' starts off at 16 and gets progressively cut in 
+# half for each iteration down to 1 at minimum
 stick_length=16
 
-loop_arr=($spos_arr)
+# ------------------
+# BUILD BLANK MATRIX
+# ------------------
 
-for (( i=$one; i<=$iter; i++ )); do
-    echo looping over spos_arr = ${spos_arr[@]}
-    for j in ${spos_arr[@]} 
+for ((i=1;i<=heightMap;i++))
+do
+    for ((j=1;j<=widthMap;j++))
     do
-        string_index_to_xy_coords $j # sets ret_arr
-
-        # MIDDLE STEM
-        start_x="${ret_arr[0]}"
-        start_y="${ret_arr[1]}"
-        # draw
-        for k in $(seq 1 $stick_length)
-        do
-            change_at_x_y_to_1 $start_x $start_y
-            # Y going up
-            start_y=$(($start_y-1))
-        done
-
-        # LEFT LINE
-        start_x="${ret_arr[0]}"
-        start_x=$(($start_x-1))
-        # y will remain the same from the previous loop
-        # draw
-        for k in $(seq 1 $stick_length)
-        do
-            change_at_x_y_to_1 $start_x $start_y
-            start_y=$(($start_y-1))
-            start_x=$(($start_x-1))
-        done
-
-        # PLACE LEFT INDEX OF NEXT Y IN ARRAY
-        # xy_coords_to_string_index $(($start_x+1)) $(($start_y+1)) # sets ret_spos
-        xy_coords_to_string_index $(($start_x+1)) $(($start_y+1)) # sets ret_spos
-        spos_arr+=( "$ret_spos" )
-
-        # RIGHT LINE
-        # Set up Indexes
-        start_x="${ret_arr[0]}"
-        start_x=$(($start_x+1))
-        start_y="${ret_arr[1]}"
-        start_y=$(($start_y-$stick_length))
-        # draw
-        for k in $(seq 1 $stick_length)
-        do
-            change_at_x_y_to_1 $start_x $start_y
-            start_y=$(($start_y-1))
-            start_x=$(($start_x+1))
-        done
-        
-        # PLACE RIGHT INDEX OF NEXT Y IN ARRAY
-        # xy_coords_to_string_index $(($start_x-1)) $(($start_y+1))
-        xy_coords_to_string_index $(($start_x-1)) $(($start_y))
-        spos_arr+=( "$ret_spos" ) # use '+=' to add it
-        
+        matrix[$i,$j]='_'
     done
-
-    # Cut the length in half (16->8)
-    stick_length=$(($stick_length/2))
-
-    # remove the positions for Ys that have been drawn
-    start_remove_index=$(($i-1))
-    start_remove_index=$((2**$start_remove_index))
-    spos_arr=( "${spos_arr[@]:$start_remove_index}" )
-
-    
-    # echo next loop spos_arr ${spos_arr[*]}
 done
 
-# echo -e $map
-# string_index_to_xy_coords 3094
-# change_at_x_y_to_2 ${ret_arr[0]} ${ret_arr[1]}
+# ---------------
+# BUILD Y FRACTAL
+# ---------------
 
-# string_index_to_xy_coords 1572
-# change_at_x_y_to_2 ${ret_arr[0]} ${ret_arr[1]}
+for ((i=1; i<=iter; i++))
+do
+    # echo i $i YEET
+    lim=$((${#roots[@]}-1)) #length of roots minus 1
+    elems=${#roots[@]}
+    old_j=$j
+    for ((k=0; k<=lim; k++))
+    do
+        # echo k $k KEET
+        pos=${roots[$k]}
 
-# string_index_to_xy_coords 1690
-# change_at_x_y_to_2 ${ret_arr[0]} ${ret_arr[1]}
+        # middle stick
+        for ((m=0; m<=stick_length-1; m++))
+        do
+            # echo m $m MEET1
+            matrix[$(($j-38)),$pos]='1'
+            ((j--))
+        done
+        
+        # left and right stick
+        for ((m=1; m<=stick_length; m++))
+        do
+            # echo m $m MEET2
+            matrix[$(($j-38)),$((pos-m))]='1'
+            matrix[$(($j-38)),$((pos+m))]='1'
+            ((j--))
+        done
 
-# string_index_to_xy_coords 1706
-# change_at_x_y_to_2 ${ret_arr[0]} ${ret_arr[1]}
+        # add in roots
+        roots=("${roots[@]}" "$((pos-m+1))" "$((pos+m-1))")
 
-# string_index_to_xy_coords 3196
-# change_at_x_y_to_2 ${ret_arr[0]} ${ret_arr[1]}
+        if (( $k < $lim ))
+        then
+            j=$old_j
+        fi
+    done
 
-# string_index_to_xy_coords 3228
-# change_at_x_y_to_2 ${ret_arr[0]} ${ret_arr[1]}
+    # actually remove elements
+    for ((k=0; k<$elems; k++))
+    do
+        unset roots[$k]
+    done
+    roots=( "${roots[@]}" )
+    stick_length=$((stick_length/2))
+done
 
-# string_index_to_xy_coords 3094
-# change_at_x_y_to_2 ${ret_arr[0]} ${ret_arr[1]}
-# string_index_to_xy_coords 3126
-# change_at_x_y_to_2 ${ret_arr[0]} ${ret_arr[1]}
+# ------------
+# PRINT MATRIX
+# ------------
 
-echo -e $map
+for ((i=1;i<=heightMap;i++))
+do
+    for ((j=1;j<=widthMap;j++))
+    do
+        printf ${matrix[$i,$j]}
+    done
+    printf "\n"
+done
