@@ -16,11 +16,15 @@ public class Solution {
 
         long result = 0;
         int asInString = 0;
+
+        // A's in the string
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == 'a') {
                 asInString++;
             }
         }
+
+        // Add in the excess
         result = asInString * (n / s.length());
         if (n % s.length() != 0) {
             String subStr = s.substring(0, (int)(n % s.length()));
