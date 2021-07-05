@@ -14,8 +14,16 @@ Please append a semicolon ";" at the end of the query and enter your query in a 
 
 -- select 2 from dual;
 
-select
-    listagg(lvl, '&') within group (order by lvl)
-from
-    (select level lvl from dual connect by (level <= 1000 and mod(level,2) <> 0));
+-- select
+--     listagg(lvl, '&') within group (order by lvl)
+-- from
+--     (select level lvl from dual connect by (level <= 1000 and mod(level,2) <> 0));
 
+SELECT
+    
+SELECT
+    LEVEL
+FROM
+    DUAL
+CONNECT BY
+    LEVEL <= 1000;
