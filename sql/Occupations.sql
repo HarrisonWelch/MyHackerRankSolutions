@@ -4,13 +4,14 @@
 -- respectively.
 
 SELECT
-    * 
-FROM (
-    SELECT name, OCCUPATION
-    FROM OCCUPATIONS)
-PIVOT (
-    COUNT(name)
-    for occupation in ('Doctor', 'Professor', 'Singer', 'Actor'));
+    *
+FROM
+    (SELECT * FROM OCCUPATIONS)
+PIVOT
+    (COUNT(NAME)
+    FOR OCCUPATION
+    IN ('Doctor', 'Professor', 'Singer', 'Actor'))
+;
 
 -- SELECT
 --     name,
