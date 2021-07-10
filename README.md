@@ -31,7 +31,7 @@ Repository for holding my [HackerRank](https://www.hackerrank.com/) programming 
 |:--------------------------|----------:|------:|--------:|
 | Java                      | 23        | 64    | 36%     |
 | Python                    | 60        | 115   | 52%     |
-| SQL                       | 45        | 58    | 78%     |
+| SQL                       | 55        | 58    | 95%     |
 | Bash                      | 65        | 65    | 100%    |
 | 30 Days of Code           | 30        | 30    | 100%    |
 | 10 Days of JS             | 25        | 25    | 100%    |
