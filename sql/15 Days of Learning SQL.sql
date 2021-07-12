@@ -469,7 +469,83 @@ ORDER BY
     date_cnt_min_hacker.SUBMISSION_DATE
 ;
 
-
+SELECT
+    date_cnt_min_hacker.SUBMISSION_DATE,
+    date_cnt_min_hacker.cnt,
+    HACKERS.HACKER_ID,
+    HACKERS.NAME
+FROM (
+    SELECT
+        date_cnt_hacker.SUBMISSION_DATE,
+        date_cnt_hacker.cnt,
+        MIN(date_cnt_hacker.HACKER_ID) HACKER_ID
+    FROM (
+        SELECT
+            cnt_by_user_date.SUBMISSION_DATE,
+            cnt_by_date.cnt,
+            cnt_by_user_date.HACKER_ID
+        FROM (
+            SELECT
+                S2.SUBMISSION_DATE,
+                S2.HACKER_ID,
+                COUNT(DISTINCT S2.SUBMISSION_ID) cnt
+            FROM
+                SUBMISSIONS S2
+            WHERE
+                S2.HACKER_ID IN (
+                    SELECT
+                        HACKERS.HACKER_ID
+                    FROM
+                        HACKERS
+                        LEFT JOIN SUBMISSIONS ON HACKERS.HACKER_ID = SUBMISSIONS.HACKER_ID
+                    GROUP BY
+                        HACKERS.HACKER_ID
+                    HAVING
+                        COUNT(DISTINCT SUBMISSIONS.SUBMISSION_DATE) = (SELECT COUNT(DISTINCT SUBMISSIONS.SUBMISSION_DATE) FROM SUBMISSIONS)
+                )
+            GROUP BY
+                S2.SUBMISSION_DATE,
+                S2.HACKER_ID
+            ORDER BY
+                S2.SUBMISSION_DATE,
+                S2.HACKER_ID) cnt_by_user_date
+            JOIN (
+                SELECT
+                    SUBMISSION_DATE,
+                    max(cnt) cnt
+                FROM (
+                    SELECT
+                        S2.SUBMISSION_DATE,
+                        S2.HACKER_ID,
+                        COUNT(DISTINCT S2.SUBMISSION_ID) cnt
+                    FROM
+                        SUBMISSIONS S2
+                    WHERE
+                        S2.HACKER_ID IN (
+                            SELECT
+                                HACKERS.HACKER_ID
+                            FROM
+                                HACKERS
+                                LEFT JOIN SUBMISSIONS ON HACKERS.HACKER_ID = SUBMISSIONS.HACKER_ID
+                            GROUP BY
+                                HACKERS.HACKER_ID
+                            HAVING
+                                COUNT(DISTINCT SUBMISSIONS.SUBMISSION_DATE) = (SELECT COUNT(DISTINCT SUBMISSIONS.SUBMISSION_DATE) FROM SUBMISSIONS)
+                        )
+                    GROUP BY
+                        S2.SUBMISSION_DATE,
+                        S2.HACKER_ID)
+                GROUP BY
+                    SUBMISSION_DATE
+            ) cnt_by_date ON cnt_by_user_date.SUBMISSION_DATE = cnt_by_date.SUBMISSION_DATE
+                         AND cnt_by_user_date.cnt = cnt_by_date.cnt) date_cnt_hacker
+    GROUP BY
+        date_cnt_hacker.SUBMISSION_DATE,
+        date_cnt_hacker.cnt) date_cnt_min_hacker
+    JOIN HACKERS ON date_cnt_min_hacker.HACKER_ID = HACKERS.HACKER_ID
+ORDER BY
+    date_cnt_min_hacker.SUBMISSION_DATE
+;
 
 
 
