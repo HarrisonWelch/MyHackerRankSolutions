@@ -14,10 +14,10 @@ public class Solution {
         largest = s.substring(0, k);
         for (int i = 1; i < (s.length() - k + 1); i++) {
             iString = s.substring(i, i+k);
-            if (smallest.compareTo(iString) > 0) {
+            if (iString.compareTo(smallest) < 0) {
                 smallest = iString;
             }
-            if (largest.compareTo(iString) < 0) {
+            if (iString.compareTo(largest) > 0) {
                 largest = iString;
             }
         }
